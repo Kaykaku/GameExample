@@ -345,10 +345,10 @@ TextureImporter:
       name: coin_3
       rect:
         serializedVersion: 2
-        x: 248
+        x: 261
         y: 383
-        width: 50
-        height: 97
+        width: 37
+        height: 61
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -368,8 +368,8 @@ TextureImporter:
         serializedVersion: 2
         x: 336
         y: 383
-        width: 44
-        height: 97
+        width: 26
+        height: 62
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -473,8 +473,8 @@ TextureImporter:
         serializedVersion: 2
         x: 663
         y: 383
-        width: 105
-        height: 61
+        width: 64
+        height: 62
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1019,8 +1019,8 @@ TextureImporter:
         serializedVersion: 2
         x: 402
         y: 175
-        width: 30
-        height: 68
+        width: 31
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1081,9 +1081,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 596
-        y: 176
-        width: 129
-        height: 61
+        y: 175
+        width: 58
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1248,10 +1248,10 @@ TextureImporter:
       name: coin_46
       rect:
         serializedVersion: 2
-        x: 528
-        y: 37
-        width: 67
-        height: 130
+        x: 526
+        y: 106
+        width: 58
+        height: 62
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1496,6 +1496,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: coin_58
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 175
+        width: 68
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 789c3cd3ea022084eb0b56decc7c93da
+      internalID: -651577265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coin_59
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 36
+        width: 57
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6a9818948bd0e84ab90b95d8382a662
+      internalID: 1205592962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1507,64 +1549,66 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      coin_4: 21300008
-      coin_22: 21300044
-      coin_3: 21300006
-      coin_21: 21300042
-      coin_42: 21300084
-      coin_39: 21300078
-      coin_10: 21300020
-      coin_45: 21300090
-      coin_9: 21300018
-      coin_29: 21300058
-      coin_55: 21300110
-      coin_13: 21300026
-      coin_7: 21300014
-      coin_25: 21300050
-      coin_47: 21300094
-      coin_41: 21300082
-      coin_56: 21300112
-      coin_53: 21300106
-      coin_1: 21300002
-      coin_23: 21300046
-      coin_54: 21300108
-      coin_17: 21300034
-      coin_15: 21300030
-      coin_31: 21300062
-      coin_5: 21300010
-      coin_8: 21300016
-      coin_24: 21300048
-      coin_40: 21300080
-      coin_26: 21300052
-      coin_32: 21300064
-      coin_48: 21300096
-      coin_34: 21300068
-      coin_0: 21300000
-      coin_35: 21300070
-      coin_2: 21300004
-      coin_28: 21300056
-      coin_18: 21300036
-      coin_33: 21300066
-      coin_44: 21300088
-      coin_20: 21300040
-      coin_50: 21300100
-      coin_43: 21300086
-      coin_46: 21300092
-      coin_52: 21300104
-      coin_51: 21300102
-      coin_57: 21300114
-      coin_12: 21300024
-      coin_16: 21300032
-      coin_27: 21300054
-      coin_11: 21300022
-      coin_14: 21300028
-      coin_49: 21300098
-      coin_19: 21300038
-      coin_36: 21300072
-      coin_38: 21300076
-      coin_30: 21300060
-      coin_6: 21300012
-      coin_37: 21300074
+      coin_4: 21300000
+      coin_22: 21300002
+      coin_3: 21300004
+      coin_21: 21300006
+      coin_58: -651577265
+      coin_42: 21300008
+      coin_39: 21300010
+      coin_10: 21300012
+      coin_45: 21300014
+      coin_9: 21300016
+      coin_29: 21300018
+      coin_55: 21300020
+      coin_13: 21300022
+      coin_7: 21300024
+      coin_25: 21300026
+      coin_47: 21300028
+      coin_41: 21300030
+      coin_56: 21300032
+      coin_59: 1205592962
+      coin_53: 21300034
+      coin_1: 21300036
+      coin_23: 21300038
+      coin_54: 21300040
+      coin_17: 21300042
+      coin_15: 21300044
+      coin_31: 21300046
+      coin_5: 21300048
+      coin_8: 21300050
+      coin_24: 21300052
+      coin_40: 21300054
+      coin_26: 21300056
+      coin_32: 21300058
+      coin_48: 21300060
+      coin_34: 21300062
+      coin_0: 21300064
+      coin_35: 21300066
+      coin_2: 21300068
+      coin_28: 21300070
+      coin_18: 21300072
+      coin_33: 21300074
+      coin_44: 21300076
+      coin_20: 21300078
+      coin_50: 21300080
+      coin_43: 21300082
+      coin_46: 21300084
+      coin_52: 21300086
+      coin_51: 21300088
+      coin_57: 21300090
+      coin_12: 21300092
+      coin_16: 21300094
+      coin_27: 21300096
+      coin_11: 21300098
+      coin_14: 21300100
+      coin_49: 21300102
+      coin_19: 21300104
+      coin_36: 21300106
+      coin_38: 21300108
+      coin_30: 21300110
+      coin_6: 21300112
+      coin_37: 21300114
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

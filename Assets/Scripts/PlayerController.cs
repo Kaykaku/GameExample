@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,43 +9,61 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float speed;
+
+
+
     [SerializeField] private float jumpForce;
 
+    Vector3 savePos;
     private bool isGrounded;
     private bool isJumping;
     private bool isAttack;
+    private bool isDeath;
     private float horizontal;
+    private int coinCount;
     private string currentAnim;
     // Start is called before the first frame update
     void Start()
     {
-        
+        savePos = transform.position;
+        OnInit();
+    }
+
+    void OnInit()
+    {
+        isDeath = false;
+        isAttack = false;
+
+        rb.velocity = Vector2.zero;
+        ChangeAnim("Idle");
+        transform.position = savePos;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(isAttack);
-        if (isAttack) return;
-
+        if (isDeath) return;
         isGrounded = IsCheckGrounded();
         horizontal = Input.GetAxis("Horizontal");
-
-
-        
+        if (isAttack)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
         if (isGrounded )
         {
+            if (isJumping) return;
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Jump();
             }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.C))
             {
                 Attack();
             }
 
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 Throw();
             }
@@ -54,6 +73,13 @@ public class PlayerController : MonoBehaviour
                 ChangeAnim("Run");
             }
         }
+
+        if (!isGrounded && rb.velocity.y < 0)
+        {
+            ChangeAnim("Fall");
+            isJumping = false;
+        }
+
         if (Mathf.Abs(horizontal) > 0.1f)
         {
             rb.velocity = new Vector2(horizontal * Time.deltaTime * speed, rb.velocity.y);
@@ -64,17 +90,13 @@ public class PlayerController : MonoBehaviour
             ChangeAnim("Idle");
         }
         
-        if(!isGrounded && rb.velocity.y < 0)
-        {
-            ChangeAnim("Fall");
-            isJumping = false;
-        }
+
     }
 
     private bool IsCheckGrounded()
     {
-        Debug.DrawLine(transform.position, transform.position + Vector3.down * 1.2f , Color.red);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position,Vector2.down, 1.2f, groundLayer);
+        Debug.DrawLine(transform.position, transform.position + Vector3.down * 1.05f , Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position,Vector2.down, 1.05f, groundLayer);
         return hit.collider != null;
 
     }
@@ -101,7 +123,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         isAttack = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
         isAttack = false;
         ChangeAnim("Idle");
     }
@@ -113,7 +135,25 @@ public class PlayerController : MonoBehaviour
             anim.ResetTrigger(animName);
             currentAnim = animName;
             anim.SetTrigger(currentAnim);
-            anim.
+        }
+    }
+
+    internal void SavePoint()
+    {
+        savePos = transform.position;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Coin"))
+        {
+            coinCount++;
+            Destroy(collision.gameObject);
+        }
+        if (collision.CompareTag("DeathZone"))
+        {
+            isDeath = true;
+            ChangeAnim("Dead");
+            Invoke("OnInit",1f);
         }
     }
 }
