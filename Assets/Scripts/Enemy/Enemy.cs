@@ -21,11 +21,14 @@ public class Enemy : Character
     // Update is called once per frame
     void Update()
     {
-        if (base.IsDeath) return;
+        if (base.IsDeath)
+        {
+            return;
+        }
         if (currentState != null)
         {
             currentState.OnExecute(this);
-        }    
+        }
     }
 
     public override void OnInit()
@@ -92,8 +95,6 @@ public class Enemy : Character
     public void Attack()
     {
         ChangeAnim("Attack"); 
-        Invoke(nameof(ActiveAttack), 0.3f);
-        Invoke(nameof(DeActiveAttack), 0.7f);
     }
 
     public bool IsTargetInRange()
@@ -101,15 +102,6 @@ public class Enemy : Character
         return Vector2.Distance(transform.position, target.transform.position) <= attackRange;
     }
 
-    public void ActiveAttack()
-    {
-        attackArea.SetActive(true);
-    }
-
-    public void DeActiveAttack()
-    {
-        attackArea.SetActive(false);
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyWall"))

@@ -7,23 +7,23 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField] Image imageFill;
 
-    float hp;
-    float maxHp;
+    float point;
+    float maxPoint;
 
-    public void OnInit(float maxHp)
+    public void OnInit(float maxPoint)
     {
-        this.maxHp = maxHp;
-        hp = maxHp;
+        this.maxPoint = maxPoint;
+        point = maxPoint;
         imageFill.fillAmount = 1;
     }
     // Update is called once per frame
     void Update()
     {
-        imageFill.fillAmount = Mathf.Lerp(imageFill.fillAmount,hp/maxHp,Time.deltaTime * 5f);
+        imageFill.fillAmount = Mathf.Lerp(imageFill.fillAmount,point/maxPoint,Time.deltaTime * 5f);
     }
 
-    public void SetNewHp(float hp)
+    public void SetNewHp(float point)
     {
-        this.hp = hp;
+        this.point = point;
     }
 }

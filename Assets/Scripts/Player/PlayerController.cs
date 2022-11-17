@@ -13,14 +13,16 @@ public class PlayerController : Character
     [SerializeField] private Transform throwPoint;
     [SerializeField] private GameObject attackArea;
     [SerializeField] private GameObject model;
+    [SerializeField] private float fireRate =1f;
 
     Vector3 savePos;
     private bool isGrounded;
     private bool isJumping;
     private bool isAttack;
-    private bool isDeath;
     private float horizontal;
     private int coinCount;
+    private int attackCombo;
+    private float lastThrow;
 
     public override void OnInit()
     {
@@ -29,9 +31,9 @@ public class PlayerController : Character
 
         rb.velocity = Vector2.zero;
         ChangeAnim("Idle");
-        DeActiveAttack();
         transform.position = savePos;
         SavePoint();
+        UIManager.instance.SetCoin(coinCount);
     }
 
     public override void OnDespawn()
@@ -109,10 +111,13 @@ public class PlayerController : Character
 
     private void Attack()
     {
-        ChangeAnim("Attack");
-        StartCoroutine(ResetAttack());
-        ActiveAttack();
-        Invoke(nameof(DeActiveAttack),0.7f);
+        isAttack = true;
+        ChangeAnim("Attack"+attackCombo);
+        attackArea.GetComponent<AttackArea>().SetDamage(30f + attackCombo * 5f);
+        attackCombo++;
+        if (attackCombo > 2) attackCombo = 0;
+        else Invoke(nameof(ResetAttackCombo),0.75f);
+        Invoke(nameof(ResetAttack),0.6f);
     }
     private void Jump()
     {
@@ -121,20 +126,37 @@ public class PlayerController : Character
         ChangeAnim("Jump");
     }
 
+
     private void Throw()
     {
-        ChangeAnim("Throw");
-        StartCoroutine(ResetAttack());
+        if (Time.time > fireRate + lastThrow)
+        {
+            lastThrow = Time.time;
+            isAttack = true;
+            ChangeAnim("Throw");
+            Invoke(nameof(ResetAttack), 1f);
+            if (base.OnSkill(20f))
+            {
+                UIManager.instance.SetColdDown1(1f);
+                Instantiate(kunaiPrefab, throwPoint.position, throwPoint.rotation);
+            }
+        }
+        else if(base.IsOutMana)
+        {
+            Debug.Log(1);
 
-        Instantiate(kunaiPrefab,throwPoint.position,throwPoint.rotation);
+            base.SetFlyText("Out of mana", Color.cyan);
+        }
+        else
+        {
+            Debug.Log(2);
+            base.SetFlyText("InColdDown", Color.black);
+        }
+        
     }
 
-    IEnumerator ResetAttack()
+    void ResetAttack()
     {
-        rb.velocity = Vector2.zero;
-        isAttack = true;
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
-        //yield return new WaitForSeconds(0.6f);
         isAttack = false;
         ChangeAnim("Idle");
     }
@@ -144,21 +166,16 @@ public class PlayerController : Character
         savePos = transform.position;
     }
 
-    public void ActiveAttack()
+    void ResetAttackCombo()
     {
-        attackArea.SetActive(true);
+        if(!isAttack) attackCombo = 0;
     }
-    
-    public void DeActiveAttack()
-    {
-        attackArea.SetActive(false);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Coin"))
         {
             coinCount++;
+            UIManager.instance.SetCoin(coinCount);
             Destroy(collision.gameObject);
         }
         if (collision.CompareTag("DeathZone"))

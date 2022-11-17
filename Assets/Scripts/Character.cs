@@ -7,13 +7,17 @@ public class Character : MonoBehaviour
 {
     [SerializeField] protected Animator anim;
     [SerializeField] protected HealthBar healthBar;
+    [SerializeField] protected HealthBar manaBar;
     [SerializeField] protected CombatTextV2 combatTextPrefab;
 
     [SerializeField] private float hp;
+    [SerializeField] private float mp;
     [SerializeField] private float maxHp;
+    [SerializeField] private float maxMp;
     private string currentAnim;
 
     public bool IsDeath => hp <= 0;
+    public bool IsOutMana => mp <= 0;
 
     private void Start()
     {
@@ -24,6 +28,8 @@ public class Character : MonoBehaviour
     {
         hp = maxHp;
         healthBar.OnInit(maxHp);
+        mp = maxMp;
+        if(manaBar != null) manaBar.OnInit(maxMp);
     }
 
     public virtual void OnDespawn()
@@ -59,5 +65,23 @@ public class Character : MonoBehaviour
             healthBar.SetNewHp(hp);
             Instantiate(combatTextPrefab,transform.position+Vector3.up,Quaternion.identity).OnInit(damage.ToString(),Color.red);
         }
+    }
+
+    public bool OnSkill(float manaUsed)
+    {
+        if (!IsDeath && mp >= manaUsed)
+        {
+            mp -= manaUsed;
+            manaBar.SetNewHp(mp);
+            Instantiate(combatTextPrefab, transform.position + Vector3.up, Quaternion.identity).OnInit(manaUsed.ToString(), Color.gray);
+            return true;
+        }
+        Instantiate(combatTextPrefab, transform.position + Vector3.up, Quaternion.identity).OnInit("Out of mana", Color.cyan);
+        return false;
+    }
+
+    public void SetFlyText(String mess , Color color)
+    {
+        Instantiate(combatTextPrefab, transform.position + Vector3.up, Quaternion.identity).OnInit(mess, color);
     }
 }
