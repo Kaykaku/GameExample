@@ -16,6 +16,8 @@ public class Kunai : MonoBehaviour
         OnInit();
     }
 
+    // Set the flight speed for Kunai
+    // Destroy after set time
     public void OnInit()
     {
         rb.velocity = transform.right *flySpeed;
@@ -27,6 +29,9 @@ public class Kunai : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Deal damage to Enemy on impact
+    // Show the effect of taking damage and disappearing after 1s
+    // Destroy Kunai
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))

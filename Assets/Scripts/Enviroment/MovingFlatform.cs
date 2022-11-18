@@ -16,6 +16,8 @@ public class MovingFlatform : MonoBehaviour
     }
 
     // Update is called once per frame
+    // Continuously move back and forth between 2 points
+    // if move to this point, change the target to the remaining point
     void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position,target,Time.deltaTime*speed);
@@ -29,6 +31,7 @@ public class MovingFlatform : MonoBehaviour
         }
     }
 
+    //When it collides with the Player, the Player will become its child Object
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -37,6 +40,7 @@ public class MovingFlatform : MonoBehaviour
         }
     }
 
+    //When the collision with the Player ends, the Player will revert back to the Root object
     private void OnCollisionExit2D(Collision2D collision)
     {
         collision.transform.SetParent(null);

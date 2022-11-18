@@ -9,6 +9,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] float speed;
 
     // Start is called before the first frame update
+    // Find the target player when starting the game
     void Start()
     {
         target = FindObjectOfType<PlayerController>().transform;
@@ -17,7 +18,9 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        //transform.position = Vector3.Lerp(transform.position,target.position + offset,Time.deltaTime*speed);
+        //The camera will move according to the character frame by frame
+        /*  transform.position = Vector3.Lerp(transform.position,target.position + offset,Time.deltaTime*speed);
+        if (Vector3.Distance(transform.position, target.position - offset) < 0.1f) transform.position = target.position + offset;*/
         transform.position = target.position + offset;
     }
 }

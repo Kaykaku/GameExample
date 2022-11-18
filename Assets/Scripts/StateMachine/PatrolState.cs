@@ -7,12 +7,18 @@ public class PatrolState : IState
     float timer;
     float randomTime;
 
+    // When entering the Patrol state, randomly initialize the time in the Patrol state and reset the timer
     public void OnEnter(Enemy enemy)
     {
         timer = 0;
         randomTime = Random.Range(3f, 6f);
     }
 
+    // Character will move in a fixed direction during execution time
+    // Receive object will go to Idle state when execution time is up
+    // * If there is a target, the character will head towards the target
+    // **If target is within attack range, switch to attack state
+    // **If target is out of range, move towards target
     public void OnExecute(Enemy enemy)
     {
         timer += Time.deltaTime;
@@ -27,7 +33,6 @@ public class PatrolState : IState
             else
             {
                 enemy.Moving();
-
             }
             return;
         }

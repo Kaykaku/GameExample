@@ -6,6 +6,8 @@ public class IdleState : IState
 {
     float timer;
     float randomTime;
+
+    // When entering the Idle state, randomly initialize the time in the Idle state and reset the timer
     public void OnEnter(Enemy enemy)
     {
         enemy.StopMoving();
@@ -13,6 +15,8 @@ public class IdleState : IState
         randomTime = Random.Range(2f,4f);
     }
 
+    // When executed, the character will be in the Idle state at the end time
+    // When finished, it will switch to the patrol state
     public void OnExecute(Enemy enemy)
     {
         timer += Time.deltaTime;

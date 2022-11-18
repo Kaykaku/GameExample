@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SavePoint : MonoBehaviour
 {
+    //Set save location on collision with Player
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

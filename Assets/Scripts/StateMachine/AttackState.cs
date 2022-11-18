@@ -6,6 +6,9 @@ public class AttackState : IState
 {
     float timer = 0;
     float hitRate = 1.5f;
+
+    // When entering the attack state, if there is a target, it will
+    // Aim at the target, stop moving and attack
     public void OnEnter(Enemy enemy)
     {
         if(enemy.Target != null)
@@ -18,6 +21,8 @@ public class AttackState : IState
         timer = 0;
     }
 
+    // Switch back to patrol mode when the attack is done
+    // Equivalent to waiting time for each attack
     public void OnExecute(Enemy enemy)
     {
         timer += Time.deltaTime;

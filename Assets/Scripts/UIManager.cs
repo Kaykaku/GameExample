@@ -14,11 +14,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI coinText;
     [SerializeField] ColdDownSkill skill1;
 
+    // Function to display Coin number on UI
     public void SetCoin(int coin)
     {
         coinText.text = coin.ToString();
     }
 
+    // Function to display CoolDown Skill 1 on UI
     public void SetColdDown1(float coldDownTime)
     {
         skill1.OnInit(coldDownTime);

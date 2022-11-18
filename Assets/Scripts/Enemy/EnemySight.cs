@@ -6,6 +6,7 @@ public class EnemySight : MonoBehaviour
 {
     public Enemy enemy;
 
+    //Set a target for the character when the Player is in sight
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -14,6 +15,7 @@ public class EnemySight : MonoBehaviour
         }
     }
 
+    //Set a target for the character when the Player is out of sight
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

@@ -10,32 +10,41 @@ public class ColdDownSkill : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeText;
 
     float timer;
-    float coldownTime;
+    float coodownTime;
 
     private void Start()
     {
         imageFill.fillAmount = 0;
     }
 
-    public void OnInit(float coldownTime)
+    //When initializing will
+    //Set cooldown countdown time
+    //Set full image
+    //Reset timer
+    public void OnInit(float coodownTime)
     {
-        this.coldownTime = coldownTime;
+        this.coodownTime = coodownTime;
         imageFill.fillAmount = 1;
-        timeText.text = coldownTime.ToString();
+        timeText.text = coodownTime.ToString();
         timer = 0;
     }
 
     private void Update()
     {
-        if (timer >= coldownTime)
+        //Timer is greater than cooldown
+        // Image fill to 0
+        // Hide cooldown text
+        if (timer >= coodownTime)
         {
             imageFill.fillAmount = 0;
             timeText.text = "";
             return;
         }
-        imageFill.fillAmount = Mathf.Lerp(1, 0, timer/coldownTime);
-        //imageFill.fillAmount = coldownTime - timer;
-        timeText.text = (Mathf.Round((coldownTime - timer) * 100f) / 100f).ToString();
+        //Timer is less than cooldown
+        // set the image fill ratio as a percentage between timer and cooldown time
+        // show remaining cooldown
+        imageFill.fillAmount = Mathf.Lerp(1, 0, timer/ coodownTime);
+        timeText.text = (coodownTime - timer).ToString("F2");
         timer += Time.deltaTime;
     }
 }
